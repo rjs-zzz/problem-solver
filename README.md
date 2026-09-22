@@ -36,33 +36,49 @@
 
 ## 설치
 
-### Claude.ai (웹/데스크톱/모바일)
-1. Claude 설정에서 Skills 업로드 화면으로 이동
-   (메뉴 경로는 플랜·시점에 따라 다릅니다 —
-   [공식 안내](https://support.claude.com/en/articles/12512180) 참조)
-2. `problem-solver` 폴더를 zip으로 압축해 업로드
+### Claude Code — 한 줄 설치 (권장)
 
-### Claude Code
-`~/.claude/skills/problem-solver/`에 폴더째 넣으면 됩니다
-(프로젝트 한정이면 `.claude/skills/`).
+```
+/plugin marketplace add rjs-zzz/problem-solver
+/plugin install problem-solver@problem-solver
+```
+
+### Claude.ai (웹/데스크톱/모바일)
+
+`plugins/problem-solver/skills/problem-solver/` 폴더를 zip으로 압축해
+Skills 업로드 화면에서 올리면 됩니다(메뉴 경로는 플랜·시점에 따라 다릅니다 —
+[공식 안내](https://support.claude.com/en/articles/12512180) 참조).
+
+### 설치 전에 결과물부터 보기
+
+[`examples/01_short-report_교육시스템-교체.md`](examples/01_short-report_교육시스템-교체.md)
+— 약식 규모 실행 시 나오는 전체 산출물(재정의 → KT 진단 → 가중 매트릭스 →
+가정 목록 → 비판적 검토)입니다.
 
 ## 구조
 
 ```
 problem-solver/
-├── SKILL.md                        # 워크플로우 총괄, 트리거 조건
-├── modules/
-│   ├── 00_problem-framing.md       # 문제 정의 (5 Whys, 드러커식 재구성)
-│   ├── 01_issue-structuring.md     # MECE 로직트리 분해
-│   ├── 02_root-cause.md            # Kepner-Tregoe 원인 진단
-│   ├── 03_options.md               # Working Backwards 대안 도출
-│   ├── 04_decision.md              # 가중 평가매트릭스 + 가역성 판별
-│   ├── 05_reporting.md             # 민토 피라미드 결정 요청 보고서
-│   └── 06_critic-review.md         # 5인 반대자 패널 비판적 검토
-└── templates/
-    ├── report_short.md             # 약식 보고 (1~3매)
-    ├── report_full.md              # 표준·정밀 보고 (5~15매)
-    └── decision_matrix.md          # 가중 평가매트릭스 템플릿
+├── .claude-plugin/marketplace.json
+├── plugins/problem-solver/
+│   ├── .claude-plugin/plugin.json
+│   └── skills/problem-solver/
+│       ├── SKILL.md                    # 워크플로우 총괄, 트리거 조건
+│       ├── modules/
+│       │   ├── 00_problem-framing.md   # 문제 정의 (5 Whys, 드러커식 재구성)
+│       │   ├── 01_issue-structuring.md # MECE 로직트리 분해
+│       │   ├── 02_root-cause.md        # Kepner-Tregoe 원인 진단
+│       │   ├── 03_options.md           # Working Backwards 대안 도출
+│       │   ├── 04_decision.md          # 가중 평가매트릭스 + 가역성 판별
+│       │   ├── 05_reporting.md         # 민토 피라미드 결정 요청 보고서
+│       │   └── 06_critic-review.md     # 5인 반대자 패널 비판적 검토
+│       └── templates/
+│           ├── report_short.md         # 약식 보고 (1~3매)
+│           ├── report_full.md          # 표준·정밀 보고 (5~15매)
+│           └── decision_matrix.md      # 가중 평가매트릭스 템플릿
+├── examples/                           # 실제 산출물 예시
+├── COMMON_CONTROLS.md
+└── tools/sync_common.py
 ```
 
 ## 함께 쓰는 스킬 — Planning Suite

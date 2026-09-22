@@ -1,0 +1,19 @@
+{
+  "name": "problem-solver",
+  "owner": {
+    "name": "rjs-zzz",
+    "url": "https://github.com/rjs-zzz"
+  },
+  "metadata": {
+    "description": "단일 결론(선택·가부·원인 판정)을 구조적으로 도출하는 Claude 스킬",
+    "version": "1.1.0"
+  },
+  "plugins": [
+    {
+      "name": "problem-solver",
+      "source": "./plugins/problem-solver",
+      "description": "구조적 문제해결 — 6단계 워크플로우 + 5인 반대자 패널 비판적 검토",
+      "version": "1.1.0"
+    }
+  ]
+}

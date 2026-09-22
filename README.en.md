@@ -50,33 +50,49 @@ instead.
 
 ## Install
 
-### Claude.ai (web / desktop / mobile)
-1. Go to Claude's settings and find the Skills upload screen
-   (the exact menu path varies by plan and may change over time —
-   see the [official docs](https://support.claude.com/en/articles/12512180))
-2. Upload the `problem-solver` folder as a zip
+### Claude Code — one-line install (recommended)
 
-### Claude Code
-Drop the folder into `~/.claude/skills/problem-solver/`
-(or `.claude/skills/` for a project-scoped install).
+```
+/plugin marketplace add rjs-zzz/problem-solver
+/plugin install problem-solver@problem-solver
+```
+
+### Claude.ai (web/desktop/mobile)
+
+Zip the folder `plugins/problem-solver/skills/problem-solver/` and upload it on
+the Skills screen (the menu path varies by plan and date — see the
+[official guide](https://support.claude.com/en/articles/12512180)).
+
+### See the output before installing
+
+[`examples/01_short-report_교육시스템-교체.md`](examples/01_short-report_교육시스템-교체.md)
+shows a complete short-form run: reframing, Kepner-Tregoe diagnosis, weighted
+matrix, assumption ledger, and the critical review panel.
 
 ## Structure
 
 ```
 problem-solver/
-├── SKILL.md                        # Workflow overview, trigger conditions
-├── modules/
-│   ├── 00_problem-framing.md       # Problem definition (5 Whys, Drucker-style reframe)
-│   ├── 01_issue-structuring.md     # MECE logic tree decomposition
-│   ├── 02_root-cause.md            # Kepner-Tregoe root-cause diagnosis
-│   ├── 03_options.md               # Working Backwards option generation
-│   ├── 04_decision.md              # Weighted decision matrix + reversibility check
-│   ├── 05_reporting.md             # Executive report assembly
-│   └── 06_critic-review.md         # 5-persona critic panel review
-└── templates/
-    ├── report_short.md             # Short-form report (1–3 pages)
-    ├── report_full.md              # Standard/detailed report (5–15 pages)
-    └── decision_matrix.md          # Weighted decision matrix template
+├── .claude-plugin/marketplace.json
+├── plugins/problem-solver/
+│   ├── .claude-plugin/plugin.json
+│   └── skills/problem-solver/
+│       ├── SKILL.md                    # Workflow control, trigger conditions
+│       ├── modules/
+│       │   ├── 00_problem-framing.md   # Problem framing (5 Whys, Drucker reframing)
+│       │   ├── 01_issue-structuring.md # MECE logic tree decomposition
+│       │   ├── 02_root-cause.md        # Kepner-Tregoe root cause
+│       │   ├── 03_options.md           # Working Backwards option generation
+│       │   ├── 04_decision.md          # Weighted matrix + reversibility test
+│       │   ├── 05_reporting.md         # Minto pyramid decision memo
+│       │   └── 06_critic-review.md     # Five-dissenter critical review panel
+│       └── templates/
+│           ├── report_short.md         # Short report (1-3 pages)
+│           ├── report_full.md          # Standard / deep report (5-15 pages)
+│           └── decision_matrix.md      # Weighted decision matrix template
+├── examples/                           # Real output samples
+├── COMMON_CONTROLS.md
+└── tools/sync_common.py
 ```
 
 ## Works Well With — Planning Suite
