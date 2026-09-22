@@ -17,7 +17,7 @@
 중장기 발전계획·경영계획·사업계획 등 계획서 수립 업무의 경우에는 
 환경분석부터 목표 체계, 전략과제, 타당성 검토, 로드맵, 환류 체계까지 
 기재부·행안부 보고서 양식 그대로 이어서 산출하고, 
-단계별 정합성을 자동으로 검증하는 planning-suite skill(https://github.com/rjs-zzz/planning-suite)을 사용하세요. 
+단계별 정합성을 자동으로 검증하는 planning-suite skill(https://github.com/rjs-zzz/planning-suite) 사용하세요. 
 
 ## 왜 이 스킬인가
 
