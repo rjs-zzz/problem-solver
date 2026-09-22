@@ -60,20 +60,43 @@ problem-solver/
     └── decision_matrix.md          # 가중 평가매트릭스 템플릿
 ```
 
+## 함께 쓰는 스킬 — Planning Suite
+
+이 스킬은 **단일 결론**(선택·가부·원인 판정) 하나를 내는 데 특화돼
+있습니다. 다루는 문제가 계획서 전체 수립이거나, 아래 표의 산출물
+중 하나를 원한다면 별도 저장소 **`planning-suite`**(P1~P6 +
+관제 스킬 `planning-orchestrator`, 총 7개 스킬 세트)를 쓰는 편이
+맞습니다.
+
+| 원하는 산출물 | 쓸 스킬 |
+|---|---|
+| 단일 결론 (A안 vs B안, 원인 진단, Go/No-Go) | **이 저장소 (problem-solver)** |
+| 환경분석 (PEST·3C·VRIO·SWOT) | planning-suite의 `env-scanning-loop-p1` |
+| 목표 체계 (미션·비전·OKR·KPI) | planning-suite의 `goal-setting-loop-p2` |
+| 전략과제 발굴 (ERRC·포트폴리오) | planning-suite의 `strategy-option-loop-p3` |
+| 타당성 검토 (예산·법률·자원 스크리닝) | planning-suite의 `feasibility-review-loop-p4` |
+| 실행 로드맵 (RACI·마일스톤·KPI 전개) | planning-suite의 `roadmap-design-loop-p5` |
+| 환류·모니터링 체계 | planning-suite의 `feedback-loop-p6` |
+| 계획서 전체, 또는 2개 이상 단계 연속 필요 | planning-suite의 `planning-orchestrator` |
+
+두 세트는 서로를 참조하도록 설계돼 있습니다 — 계획 문서 작업 중
+"이 대안 중 뭘 골라야 하나" 같은 단일 판단이 필요해지면
+planning-suite 쪽 스킬들이 problem-solver로 위임하고, 반대로 이
+스킬이 "그건 계획 문서의 한 파트다"라고 판단하면 해당 Phase
+스킬로 안내합니다. 두 세트를 함께 설치해두면 이 위임이 자동으로
+작동합니다.
+
 ## 사용 시 참고
 
 - **조직 맥락 커스터마이징**: SKILL.md와 각 모듈 끝의 "조직 맥락
   체크포인트" 섹션은 범용으로 작성돼 있습니다. 소속 조직(공공기관,
   기업, 병원 등)에 맞는 법령명·이해관계자 맵·평가 체계로 직접
   채워 넣으면 정확도가 크게 올라갑니다.
-- **언어**: 이 스킬은 한국어 전용입니다. 지시문·모듈·템플릿이 모두
-  한국어로 작성되어 있고, 출력 형식도 한국 정부 보고서 양식
-  (두괄식·개조식·【 】 제목 체계)을 따릅니다. 영어 환경에서 쓰려면
-  SKILL.md의 "출력 표준" 섹션과 각 모듈을 직접 번역해야 합니다.
-- **Phase 스킬과의 관계**: 계획서 전체 수립처럼 더 큰 작업의 일부인
-  경우, 이 스킬 단독보다 `planning-suite` 세트(P1~P6 + orchestrator,
-  별도 저장소)가 적합할 수 있습니다. `planning-orchestrator`는 그
-  세트에 포함된 관제 스킬 이름입니다.
+- **영문판 스킬**: 이 저장소는 한국어 전용입니다(출력 형식도 한국
+  정부 보고서 양식). 영어로 작동하는 완전 별도 버전은
+  `problem-solver-en` 저장소에 공개되어 있습니다 — 지시문·모듈·
+  템플릿 전체가 영문으로 작성되어 있고 출력도 국제 보고서 관행을
+  따릅니다.
 
 ## 라이선스
 
