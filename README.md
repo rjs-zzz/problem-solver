@@ -75,7 +75,8 @@ problem-solver/
 │       └── templates/
 │           ├── report_short.md         # 약식 보고 (1~3매)
 │           ├── report_full.md          # 표준·정밀 보고 (5~15매)
-│           └── decision_matrix.md      # 가중 평가매트릭스 템플릿
+│           ├── decision_matrix.md      # 가중 평가매트릭스 템플릿
+│           └── data_block.md           # [DATA-PS-OUTPUT] 인계 블록 스키마
 ├── examples/                           # 실제 산출물 예시
 ├── COMMON_CONTROLS.md
 └── tools/sync_common.py
@@ -106,6 +107,8 @@ planning-suite 쪽 스킬들이 problem-solver로 위임하고, 반대로 이
 스킬이 "그건 계획 문서의 한 파트다"라고 판단하면 해당 Phase
 스킬로 안내합니다. 두 세트를 함께 설치해두면 이 위임이 자동으로
 작동합니다.
+단일 결론은 `[DATA-PS-OUTPUT]` 블록(`templates/data_block.md`)으로 반환돼
+planning-suite가 가정·Go/No-Go 조건·실행 개요를 재입력 없이 이어받습니다.
 
 ## 사용 시 참고
 

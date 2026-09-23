@@ -90,6 +90,13 @@ description: 업무 문제의 해결책 도출·판단·의사결정 보고가 �
 - 결론 선행(피라미드) + 개조식 구조는 분량 무관 유지
 - templates/report_short.md, templates/report_full.md,
   templates/decision_matrix.md 활용
+- **`[DATA-PS-OUTPUT]` 블록 (조건부)** — 아래 중 하나면 보고서 최하단에 출력:
+  ○ planning-suite 스킬(P1~P6·planning-orchestrator) 작업 중 호출됐거나,
+    그 산출물([DATA-PN-OUTPUT])이 입력에 포함된 경우
+  ○ 결론이 Go·채택이고 사용자가 후속 계획 수립(로드맵·사업계획)을 언급한 경우
+  ○ 사용자가 요청한 경우
+  - 스키마·작성 규칙: templates/data_block.md (본문과 불일치·본문 밖 내용 추가 금지)
+  - 위 조건이 없으면 출력하지 않는다 — 단발 판단에 인계 블록은 필러다
 
 ## 세션 인계 규칙 (장기 작업)
 - 각 단계 산출물은 즉시 확정 텍스트로 완결 출력 (사용자가 보존 가능)
@@ -127,6 +134,9 @@ description: 업무 문제의 해결책 도출·판단·의사결정 보고가 �
   "기획안 잡아줘"가 계획서 성격이면 planning-orchestrator.
 - 본 스킬 수행 중 특정 Phase 산출물이 필요해지면 그 Phase 스킬을 호출해 받아온
   뒤 이어간다 — 사용자에게 별도 요청을 되묻지 않는다.
+- **역방향 인계**: Phase 스킬 작업 중 단일 판정을 위임받으면 약식 규모를 기본으로
+  수행하고 `[DATA-PS-OUTPUT]`의 meta.return_ref에 호출 쟁점 키를 기록해 반환한다.
+  Go 결정 후 실행계획이 필요하면 블록을 roadmap-design-loop-p5 입력으로 넘긴다.
 
 ## 근거 위계 (전 단계 공통)
 - [1급] 사용자 제공 로컬 자료 — 내부 보고서, 공문, 계약서, 감사자료,

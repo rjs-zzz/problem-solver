@@ -122,6 +122,9 @@ call ("which of these options should we pick"), it delegates to this
 skill; conversely, if this skill determines a request is really "a
 component of a planning document," it points to the matching Phase
 skill. Install both and this handoff happens automatically.
+The decision comes back as a `[DATA-PS-OUTPUT]` block
+(`templates/data_block.md`), so planning-suite inherits assumptions,
+Go/No-Go conditions, and the execution outline without re-entry.
 
 ## Notes on use
 
