@@ -34,6 +34,8 @@ between phases.
 3. **What to prepare** — only two things are required: the problem statement, and the content of the options when you ask for a comparison. Success criteria, constraints, evidence (figures, quotes, regulations) and an `[조직 프로필]` (organization profile) block are recommended. The skill stops to ask only when a required input is missing; everything else is filled with labelled assumptions, and the first page of the report lists the input status and the three inputs that would change the conclusion.
 4. **Size** — say "약식으로" (1–3 pages, runs without asking), "표준으로" (5–10 pages) or "정식으로" (up to 15 pages, plan approval first).
 
+**Frontier scan** — before the analysis each skill runs one bounded web search for recent theory, research, cases and policy changes relevant to the matter, using generalized queries only (no internal names or amounts). Only sources actually opened are cited, each judged adopt / reference / reject in an appendix. Say "탐색 생략" to skip or "탐색 강화" to widen it.
+
 Mask personal and confidential data before uploading. One model performs both the analysis and the review, so have a person re-check important decisions.
 
 ## Why this skill

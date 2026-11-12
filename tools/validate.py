@@ -7,7 +7,7 @@
   1. SKILL.md frontmatter — name이 폴더명과 같은지, description 길이
   2. SKILL.md·모듈이 가리키는 하위 파일(modules/·templates/·references/·agents/)이 실재하는지
   3. 공통 실행 통제 블록이 COMMON_CONTROLS.md와 같은지
-  4. 「입력 점검표」 절이 있는지
+  4. 「입력 점검표」·「최신 동향 탐색」 절이 있는지, references/ 사본이 shared/ 원본과 같은지
   5. 버전 일치 — plugin.json · marketplace.json · CHANGELOG 최신 항목
   6. dist/*.zip이 최신인지
   7. 민감정보 패턴(주민등록번호·이메일·전화번호)이 섞이지 않았는지
@@ -54,6 +54,12 @@ for p in skills:
         errs.append(f"{rel(p)}: 공통 블록이 COMMON_CONTROLS.md와 다릅니다 — tools/sync_common.py 실행")
     if "## 입력 점검표" not in t:
         errs.append(f"{rel(p)}: 「입력 점검표」 절이 없습니다")
+    if "## 최신 동향 탐색" not in t:
+        errs.append(f"{rel(p)}: 「최신 동향 탐색」 절이 없습니다")
+    for s in glob.glob(os.path.join(ROOT, "shared", "*.md")):
+        dst = os.path.join(d, "references", os.path.basename(s))
+        if not os.path.exists(dst) or rd(dst) != rd(s):
+            errs.append(f"{rel(dst)}: shared/ 원본과 다릅니다 — tools/sync_common.py 실행")
     for f in glob.glob(os.path.join(d, "**", "*.md"), recursive=True):
         for ref in set(re.findall(r"(?<![\w/.-])((?:modules|templates|references|agents)/[\w.\-]+\.md)", rd(f))):
             if not os.path.exists(os.path.join(d, ref)):
