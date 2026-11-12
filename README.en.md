@@ -27,6 +27,15 @@ and feedback framework, producing output in a consistent report
 format at every stage while automatically validating consistency
 between phases.
 
+## Quick start
+
+1. **Install** — see [Install](#install). On Claude.ai you upload a single zip.
+2. **Ask** in plain language (the skill and its output are Korean-only). If it does not trigger, prefix the request with "problem-solver로".
+3. **What to prepare** — only two things are required: the problem statement, and the content of the options when you ask for a comparison. Success criteria, constraints, evidence (figures, quotes, regulations) and an `[조직 프로필]` (organization profile) block are recommended. The skill stops to ask only when a required input is missing; everything else is filled with labelled assumptions, and the first page of the report lists the input status and the three inputs that would change the conclusion.
+4. **Size** — say "약식으로" (1–3 pages, runs without asking), "표준으로" (5–10 pages) or "정식으로" (up to 15 pages, plan approval first).
+
+Mask personal and confidential data before uploading. One model performs both the analysis and the review, so have a person re-check important decisions.
+
 ## Why this skill
 
 In a normal chat, Claude answers as soon as you ask. This skill
@@ -57,7 +66,11 @@ instead.
 /plugin install problem-solver@problem-solver
 ```
 
-### Claude.ai (web/desktop/mobile)
+### Claude.ai (web/desktop/mobile) — upload one file
+
+Download [`dist/problem-solver.zip`](dist/problem-solver.zip) and upload it as-is on the Skills upload screen (do not unzip or re-zip). For a new version, download the zip again and re-upload. In Claude Code, third-party marketplaces do not auto-update by default: open `/plugin` → **Marketplaces**, select `problem-solver`, and choose **Update marketplace** or **Enable auto-update**.
+
+Building the zip yourself:
 
 Zip the folder `plugins/problem-solver/skills/problem-solver/` and upload it on
 the Skills screen (the menu path varies by plan and date — see the
