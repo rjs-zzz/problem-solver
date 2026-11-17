@@ -7,6 +7,7 @@ problem-solver의 단일 결론을 planning-suite(P1~P6·orchestrator)가 재해
 - 보고서 본문의 확정 내용만 옮긴다 — 본문에 없는 판단·수치 추가 금지
 - 라벨([정량]/[추정]/[가정 An]/[확인 필요])은 본문 그대로 유지
 - 06 판정관이 "회귀" 판정한 결론은 블록을 출력하지 않는다 (미확정 결론 인계 금지)
+- 레드팀 검증 대기(잠정) 상태의 결론도 출력하지 않는다 — `[RT-RETURN]` 반영 후 확정본에서만 낸다
 - 필드가 해당 없음이면 `null` — 필드 삭제 금지 (Q-Gate 스키마 검사 대상)
 
 ## 스키마
@@ -23,6 +24,7 @@ verdict:
   type: 선택 | Go/No-Go | 원인판정
   result: 권고안 요지 1~2줄
   panel_ruling: 유지 | 조건부 유지(조건 명시)
+  review_mode: 내부 | 레드팀(모델·독립성 등급)
 reversibility: Two-way | 부분가역 | One-way
 options:            # Do Nothing 포함, 전건
   - {id, 요지, 판정: 채택|기각, 사유 1줄}

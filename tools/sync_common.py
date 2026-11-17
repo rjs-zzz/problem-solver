@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """COMMON_CONTROLS.md의 공통 블록을 모든 SKILL.md에 반영하고, shared/*.md를 각 스킬 references/에 복사한다.
+MIRRORS에 적힌 파일은 원본 스킬에서 사본 스킬로 복사한다 (사본은 직접 고치지 않는다).
 
 사용법:  python tools/sync_common.py        (저장소 루트에서 실행)
 """
@@ -45,3 +46,18 @@ for p in sorted(targets):
             copied += 1
             print(f"  copied: {os.path.relpath(dst, ROOT)}")
 print(f"공통 참조 파일 — 원본 {len(shared)}개, 갱신 {copied}건")
+
+# 스킬 간 미러 — 원본 하나를 다른 스킬에 사본으로 둔다 (zip 단독 배포용).
+MIRRORS = [
+    ("plugins/problem-solver/skills/problem-solver/modules/06_critic-review.md",
+     "plugins/problem-solver/skills/red-team/modules/06_critic-review.md"),
+]
+mirrored = 0
+for src, dst in MIRRORS:
+    s, d = os.path.join(ROOT, src), os.path.join(ROOT, dst)
+    os.makedirs(os.path.dirname(d), exist_ok=True)
+    if not os.path.exists(d) or open(d, encoding="utf-8").read() != open(s, encoding="utf-8").read():
+        shutil.copy(s, d)
+        mirrored += 1
+        print(f"  mirrored: {dst}")
+print(f"미러 — {len(MIRRORS)}건 중 {mirrored}건 갱신")
