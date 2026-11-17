@@ -1,6 +1,6 @@
 ---
 name: problem-solver
-description: 업무 문제의 해결책 도출·판단·의사결정 보고가 필요할 때 사용한다. "이 문제 어떻게 해결하지", "방안 검토해줘", "A안 B안 중 뭐가 나아", "대안 비교해줘", "의사결정 도와줘", "원인 분석해줘", "판단해줘", "해결책으로 정리해줘", "Go/No-Go 판단", "problem-solver로" 등 단일 결론(선택·가부·원인 판정) 1건을 명시적으로 요청할 때 트리거. 조직·행정 맥락의 판단·검토 업무와 개인 의사결정 사안에 적용. [경계] 산출물이 계획 문서의 구성요소면 해당 Phase 스킬(env-scanning-loop-p1 / goal-setting-loop-p2 / strategy-option-loop-p3 / feasibility-review-loop-p4 / roadmap-design-loop-p5 / feedback-loop-p6)을, 계획서 전체면 planning-orchestrator를 쓴다. 단순 사실 질문, 일상 대화, 오탈자 교정, 단순 실행 요청에는 발동하지 않는다.
+description: 업무 문제의 단일 결론(선택·가부·원인 판정)을 결재·보고용 검토 보고서로 산출할 때 사용한다. "problem-solver로", "검토 보고서로 정리해줘", "의사결정 보고서 만들어줘", "A안 B안 비교 검토 보고", "원인 분석 보고서", "Go/No-Go 판단 보고", "이사회·경영진 상정 안건 검토" 등 보고서 형태의 산출을 요청할 때 트리거. 대화 중 의견·빠른 판단("뭐가 나아", "어떻게 생각해", "해도 될까")은 judgment-core 같은 일반 판단 스킬이 맡는다. [경계] 산출물이 계획 문서의 구성요소면 해당 Phase 스킬(env-scanning-loop-p1 / goal-setting-loop-p2 / strategy-option-loop-p3 / feasibility-review-loop-p4 / roadmap-design-loop-p5 / feedback-loop-p6)을, 계획서 전체면 planning-orchestrator를, 완성 문서의 독립 검증이면 red-team을 쓴다. 단순 사실 질문, 일상 대화, 오탈자 교정, 단순 실행 요청에는 발동하지 않는다.
 ---
 
 # Problem-Solver: 구조적 문제해결 마스터 스킬
