@@ -7,7 +7,8 @@
   1. SKILL.md frontmatter — name이 폴더명과 같은지, description 길이
   2. SKILL.md·모듈이 가리키는 하위 파일(modules/·templates/·references/·agents/)이 실재하는지
   3. 공통 실행 통제 블록이 COMMON_CONTROLS.md와 같은지
-  4. 「입력 점검표」·「최신 동향 탐색」 절이 있는지, references/ 사본이 shared/ 원본과 같은지
+  4. 「입력 점검표」·「최신 동향 탐색」 절이 있는지, references/ 사본이 shared/ 원본과 같은지,
+     스킬 간 미러 사본(tools/sync_common.py의 MIRRORS)이 원본과 같은지
   5. 버전 일치 — plugin.json · marketplace.json · CHANGELOG 최신 항목
   6. dist/*.zip이 최신인지
   7. 민감정보 패턴(주민등록번호·이메일·전화번호)이 섞이지 않았는지
@@ -64,6 +65,16 @@ for p in skills:
         for ref in set(re.findall(r"(?<![\w/.-])((?:modules|templates|references|agents)/[\w.\-]+\.md)", rd(f))):
             if not os.path.exists(os.path.join(d, ref)):
                 errs.append(f"{rel(f)}: 가리키는 파일 없음 → {ref}")
+
+# 스킬 간 미러
+_src = rd(os.path.join(ROOT, "tools", "sync_common.py"))
+_mm = re.search(r"MIRRORS = \[(.*?)\n\]", _src, re.S)
+for a, b in re.findall(r'\("([^"]+)",\s*"([^"]+)"\)', _mm.group(1) if _mm else ""):
+    pa, pb = os.path.join(ROOT, a), os.path.join(ROOT, b)
+    if not os.path.exists(pa):
+        errs.append(f"미러 원본 없음: {a}")
+    elif not os.path.exists(pb) or rd(pa) != rd(pb):
+        errs.append(f"{b}: 원본({a})과 다릅니다 — tools/sync_common.py 실행")
 
 # 버전
 mk = json.load(open(os.path.join(ROOT, ".claude-plugin", "marketplace.json"), encoding="utf-8"))

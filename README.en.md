@@ -59,6 +59,17 @@ instead.
 - Completion criteria, length caps, and report scale are defined up
   front so the process doesn't run indefinitely
 
+## Independent review (red-team)
+
+Version 1.7.0 adds a second skill, **red-team**. A review done in the same conversation by the same model shares the author's reasoning and errors. For important decisions, run the critic panel (module 06) **in a new conversation, outside any project, with a different model**:
+
+1. In the original conversation (standard or formal scale), choose **red-team** when asked for the review path. The skill stops after the draft and emits an `[RT-PACKET]`.
+2. Open a new conversation outside the project, pick a different model, and paste the whole response with "red-team으로".
+3. The red-team skill checks the usage rules itself (same conversation? same model as `author_model`?) and will not offer "rules met" when they are violated. It returns an `[RT-RETURN]` block with an independence grade.
+4. Paste `[RT-RETURN]` back into the original conversation. The author may supplement or accept findings but cannot overturn the ruling.
+
+Rules and block schemas: [`shared/rt_protocol.md`](shared/rt_protocol.md). The skill text is Korean-only.
+
 ## Install
 
 ### Claude Code — one-line install (recommended)
@@ -70,7 +81,7 @@ instead.
 
 ### Claude.ai (web/desktop/mobile) — upload one file
 
-Download [`dist/problem-solver.zip`](dist/problem-solver.zip) and upload it as-is on the Skills upload screen (do not unzip or re-zip). For a new version, download the zip again and re-upload. In Claude Code, third-party marketplaces do not auto-update by default: open `/plugin` → **Marketplaces**, select `problem-solver`, and choose **Update marketplace** or **Enable auto-update**.
+Download [`dist/problem-solver.zip`](dist/problem-solver.zip) and [`dist/red-team.zip`](dist/red-team.zip) and upload each as-is on the Skills upload screen (do not unzip or re-zip). For a new version, download the zip again and re-upload. In Claude Code, third-party marketplaces do not auto-update by default: open `/plugin` → **Marketplaces**, select `problem-solver`, and choose **Update marketplace** or **Enable auto-update**.
 
 Building the zip yourself:
 
@@ -105,6 +116,7 @@ problem-solver/
 │           ├── report_short.md         # Short report (1-3 pages)
 │           ├── report_full.md          # Standard / deep report (5-15 pages)
 │           └── decision_matrix.md      # Weighted decision matrix template
+│   └── skills/red-team/                # Independent review in a new conversation / different model
 ├── examples/                           # Real output samples
 ├── COMMON_CONTROLS.md
 └── tools/sync_common.py

@@ -4,7 +4,8 @@
 
 업무 문제를 **6단계(정의 → 구조화 → 진단 → 대안 → 결정 → 보고)**로 해결하고,
 최종 결론 전 **5인 반대자 패널**의 비판적 검토를 자동으로 거치는
-구조적 문제해결 Claude Skill입니다.
+구조적 문제해결 Claude Skill입니다. 함께 들어 있는 **red-team** 스킬은 그 검토를
+**새 대화 · 다른 모델**에서 다시 돌려, 작성한 쪽이 스스로를 채점하는 한계를 줄입니다.
 
 "이 문제 어떻게 해결하지", "A안 B안 중 뭐가 나아", "판단해줘" 같은
 **단일 결론(선택·가부·원인 판정)이 필요한 요청**에 반응합니다.
@@ -60,6 +61,22 @@
 
 **5. 분량 조절** — "약식으로"(1~3매, 묻지 않고 바로) / "표준으로"(5~10매) / "정식으로"(15매 이내, 계획 승인 후 진행).
 
+**6. 독립 검증 (레드팀)** — 같은 대화·같은 모델의 검토는 작성할 때의 논리와 오류를 공유합니다.
+중요한 결정은 06 검토를 **다른 대화, 다른 모델**에서 받으세요.
+
+| 순서 | 어디서 | 무엇을 |
+|---|---|---|
+| 1 | 원 대화 | 표준·정식 실행 시 「검증 경로」 질문에서 **레드팀**을 고른다 (약식은 "레드팀으로"라고 명시) |
+| 2 | 원 대화 | 05 초안과 `[RT-PACKET]`이 나오고 멈춘다 → 응답 전체 복사 |
+| 3 | **프로젝트 밖 새 대화** | 모델 선택에서 **작성과 다른 모델**을 고르고 "red-team으로"와 함께 붙여넣기 |
+| 4 | 새 대화 | 사용 규칙 점검 → 5인 패널 → 판정서와 `[RT-RETURN]` |
+| 5 | 원 대화 | `[RT-RETURN]`을 붙여넣으면 보완·수용을 반영해 보고서 확정 (판정은 뒤집지 않음) |
+
+- 레드팀은 같은 대화이거나 작성 모델과 같은 모델이면 스스로 알아채고 "규칙 충족"을 고르지 못하게 합니다.
+  규칙을 어기고 진행하면 **독립성 등급**(높음·중간·낮음)이 낮게 기록되고, 그 등급이 최종 보고서 Ⅴ장에 남습니다.
+- 다른 사람이 쓴 보고서·기획안도 새 대화에 붙여넣고 "red-team으로"라고 하면 검증합니다. 문서를 고쳐 쓰지는 않습니다.
+- 규칙과 블록 형식: [`shared/rt_protocol.md`](shared/rt_protocol.md)
+
 **최신 동향 탐색** — 실행할 때마다 관련 신규 이론·연구·사례·제도를 인터넷에서 찾아 반영합니다.
 
 - 검색어에는 내부 안건명·기관명·금액을 넣지 않습니다. 일반화해도 사안이 드러나면 검색하지 않습니다.
@@ -68,7 +85,8 @@
 - 건너뛰려면 "탐색 생략", 더 넓게 찾으려면 "탐색 강화"라고 하세요.
 
 **주의** — 개인정보·대외비는 가리고 올리세요. 산출물은 판단을 돕는 자료입니다.
-한 모델이 분석과 검증을 함께 하므로, 중요한 결정은 사람이 다시 확인해야 합니다.
+내부 검토는 한 모델이 분석과 검증을 함께 하므로 독립 검증이 아닙니다 — 중요한 결정은 레드팀 경로를 쓰고,
+최종 판단은 사람이 합니다.
 
 ## 자가개선 체계
 
@@ -113,12 +131,14 @@
 
 ### Claude.ai (웹/데스크톱/모바일) — 파일 하나만 올리기
 
-1. [`dist/problem-solver.zip`](dist/problem-solver.zip)을 내려받습니다.
-2. Skills 업로드 화면에서 그 zip을 그대로 올립니다 — 압축을 풀거나 다시 묶지 않습니다
+1. [`dist/problem-solver.zip`](dist/problem-solver.zip)과 [`dist/red-team.zip`](dist/red-team.zip)을 내려받습니다.
+   (레드팀 경로를 쓰려면 두 개 모두 필요합니다)
+2. Skills 업로드 화면에서 각 zip을 그대로 올립니다 — 압축을 풀거나 다시 묶지 않습니다
    (메뉴 경로는 플랜·시점에 따라 다릅니다 — [공식 안내](https://support.claude.com/en/articles/12512180) 참조).
 3. 새 대화에서 "problem-solver로 …"라고 요청합니다.
 
-새 버전이 나오면 같은 zip을 다시 내려받아 올리면 됩니다. 변경 내용은 [CHANGELOG](CHANGELOG.md)에 있습니다.
+새 버전이 나오면 같은 zip을 다시 내려받아 올리면 됩니다. 마켓플레이스로 설치했다면
+사용자 지정 → 플러그인 → 마켓플레이스 관리에서 "업데이트 확인"을 누릅니다. 변경 내용은 [CHANGELOG](CHANGELOG.md)에 있습니다.
 
 ### 설치 전에 결과물부터 보기
 
@@ -146,16 +166,23 @@ problem-solver/
 │       │   ├── 04_decision.md          # 가중 평가매트릭스 + 가역성 판별
 │       │   ├── 05_reporting.md         # 민토 피라미드 결정 요청 보고서
 │       │   └── 06_critic-review.md     # 5인 반대자 패널 비판적 검토
+│       ├── references/rt_protocol.md   # 레드팀 규약 사본 (shared/ 원본)
 │       └── templates/
 │           ├── report_short.md         # 약식 보고 (1~3매)
 │           ├── report_full.md          # 표준·정밀 보고 (5~15매)
 │           ├── decision_matrix.md      # 가중 평가매트릭스 템플릿
 │           ├── intake_sheet.md         # 입력 양식 (준비물 안내)
 │           └── data_block.md           # [DATA-PS-OUTPUT] 인계 블록 스키마
-├── dist/problem-solver.zip             # Claude.ai 업로드용 (tools/build_dist.py로 생성)
+│   └── skills/red-team/
+│       ├── SKILL.md                    # 사용 규칙 게이트 → 카드 → 06 패널 → [RT-RETURN]
+│       ├── modules/06_critic-review.md # 06 사본 (tools/sync_common.py가 복사 — 직접 수정 금지)
+│       └── references/rt_protocol.md
+├── dist/problem-solver.zip · red-team.zip  # Claude.ai 업로드용 (tools/build_dist.py로 생성)
 ├── examples/                           # 산출물·입력 점검 예시
 ├── COMMON_CONTROLS.md                  # 공통 실행 통제 블록 원본
-├── shared/frontier_scan.md              # 최신 동향 탐색 공통 절차 원본 (각 스킬 references/로 복사)
+├── shared/                             # 공통 참조 원본 (각 스킬 references/로 복사)
+│   ├── frontier_scan.md                # 최신 동향 탐색 공통 절차
+│   └── rt_protocol.md                  # 레드팀 사용 규칙·블록 스키마
 └── tools/                              # sync_common.py · build_dist.py · validate.py
 ```
 
@@ -170,6 +197,7 @@ problem-solver/
 | 원하는 산출물 | 쓸 스킬 |
 |---|---|
 | 단일 결론 (A안 vs B안, 원인 진단, Go/No-Go) | **이 저장소 (problem-solver)** |
+| 완성 문서의 독립 검증 (새 대화·다른 모델) | **이 저장소 (red-team)** — 계획서도 검증 가능 |
 | 환경분석 (PEST·3C·VRIO·SWOT) | planning-suite의 `env-scanning-loop-p1` |
 | 목표 체계 (미션·비전·OKR·KPI) | planning-suite의 `goal-setting-loop-p2` |
 | 전략과제 발굴 (ERRC·포트폴리오) | planning-suite의 `strategy-option-loop-p3` |
