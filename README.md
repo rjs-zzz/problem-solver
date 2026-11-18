@@ -118,6 +118,8 @@
 
 ## 설치
 
+> **Claude · ChatGPT · Gemini 통합 설치 안내** — [INSTALL.md](INSTALL.md). 친구에게는 이 주소 하나만 보내면 됩니다.
+
 ### Claude Code — 한 줄 설치 (권장)
 
 ```

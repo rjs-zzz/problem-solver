@@ -72,6 +72,8 @@ Rules and block schemas: [`shared/rt_protocol.md`](shared/rt_protocol.md). The s
 
 ## Install
 
+> **One page for Claude · ChatGPT · Gemini** (Korean): [INSTALL.md](INSTALL.md)
+
 ### Claude Code — one-line install (recommended)
 
 ```
