@@ -2,6 +2,15 @@
 
 본 저장소는 [Semantic Versioning](https://semver.org/lang/ko/)을 따른다.
 
+## [1.7.2] — 2026-11-18
+
+### 변경 (다른 AI 호환)
+- ChatGPT·Gemini도 같은 SKILL.md(Agent Skills 표준)를 읽는다. 레드팀 규약(`shared/rt_protocol.md`)의
+  "다른 회사 모델로 가져가면 레드팀 스킬은 작동하지 않는다"를 고쳤다 — 스킬을 설치하면 다른 회사 AI에서도 실행되고,
+  설치되지 않은 AI에서만 작동하지 않는다. 다른 회사 AI로 문서를 옮길 때의 외부 교차검증 패키지 규칙(일반화·대외비 제외)은 그대로다.
+- `tools/validate.py`: name 형식 점검(소문자·숫자·하이픈, 64자 이하)과 스킬 본문의 특정 AI 환경 이름 점검을 추가했다.
+- README: ChatGPT·Gemini 설치 방법을 추가했다.
+
 ## [1.7.1] — 2026-11-17
 
 ### 변경

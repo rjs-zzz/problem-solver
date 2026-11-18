@@ -140,6 +140,23 @@
 새 버전이 나오면 같은 zip을 다시 내려받아 올리면 됩니다. 마켓플레이스로 설치했다면
 사용자 지정 → 플러그인 → 마켓플레이스 관리에서 "업데이트 확인"을 누릅니다. 변경 내용은 [CHANGELOG](CHANGELOG.md)에 있습니다.
 
+### ChatGPT · Gemini — 같은 zip 사용
+
+ChatGPT와 Gemini도 같은 SKILL.md 형식(Agent Skills 표준)을 읽습니다. 위 `dist/` zip을 그대로 씁니다.
+
+| AI | 방법 |
+|---|---|
+| ChatGPT | Skills → Create → Upload from your computer에서 zip을 올립니다 |
+| Gemini (웹 gemini.google.com · Mac 앱) | 설정 → 스킬 → 업로드. zip이 거부되면 압축을 풀어 스킬 폴더를 올립니다 |
+| Gemini CLI | `gemini skills install https://github.com/rjs-zzz/problem-solver.git --path plugins/problem-solver/skills/problem-solver` (red-team은 경로 끝을 `red-team`으로) |
+
+- 부를 때: ChatGPT는 `@스킬명`, Gemini는 `/스킬명`. 요청이 스킬 설명과 맞으면 알아서 고르기도 합니다.
+- ChatGPT 데스크톱 앱은 Plugins → Add → Add a marketplace에 `rjs-zzz/problem-solver`를 넣는 방법도 있습니다
+  (OpenAI 문서상 Claude 형식 마켓플레이스와 호환). 웹·모바일에서 보이는지는 플랜·시점에 따라 다릅니다.
+- 다른 회사 AI로 문서를 옮길 때는 기관명·인명을 일반화하고 대외비 원문은 넣지 않습니다.
+- 메뉴 이름과 지원 범위는 각 회사의 개편에 따라 바뀝니다 (2026-11 기준).
+- red-team은 작성할 때와 다른 회사 AI에서 돌리면 R3(다른 모델)를 충족합니다.
+
 ### 설치 전에 결과물부터 보기
 
 [`examples/00_입력점검-예시.md`](examples/00_입력점검-예시.md)

@@ -12,6 +12,7 @@
   5. 버전 일치 — plugin.json · marketplace.json · CHANGELOG 최신 항목
   6. dist/*.zip이 최신인지
   7. 민감정보 패턴(주민등록번호·이메일·전화번호)이 섞이지 않았는지
+  8. 다른 AI 호환 — name 형식(Agent Skills 표준), 스킬 본문에 특정 AI 환경 이름이 없는지
 """
 import glob, json, os, re, subprocess, sys
 
@@ -51,6 +52,8 @@ for p in skills:
         errs.append(f"{rel(p)}: description {dl}자 — 1024자 초과")
     elif dl > 200:
         warns.append(f"{name}: description {dl}자 (공식 안내는 200자 이내 — 업로드가 거부되면 줄일 것)")
+    if len(name) > 64 or not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name):
+        errs.append(f"{rel(p)}: name '{name}' — 소문자·숫자·하이픈, 64자 이하 (Agent Skills 표준)")
     if common and common not in t:
         errs.append(f"{rel(p)}: 공통 블록이 COMMON_CONTROLS.md와 다릅니다 — tools/sync_common.py 실행")
     if "## 입력 점검표" not in t:
@@ -95,6 +98,16 @@ if not cl or cl.group(1) != ver:
 r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "build_dist.py"), "--check"], capture_output=True, text=True)
 if r.returncode != 0:
     errs.append("dist/*.zip이 최신이 아닙니다 — tools/build_dist.py 실행")
+
+# 다른 AI 호환 — 스킬 본문은 환경 이름이 아니라 능력으로 쓴다 ("병렬 실행 도구가 있는 환경")
+# 같은 SKILL.md를 Claude·ChatGPT·Gemini가 함께 읽기 때문. 출처 인용이 담기는 지식 원장은 제외.
+ENV = re.compile(r"Claude\.ai|Claude Code|Cowork|Task 도구|Task 서브에이전트|ChatGPT|Gemini|Codex")
+for f in glob.glob(os.path.join(ROOT, "plugins", "**", "*.md"), recursive=True):
+    if os.path.basename(f) == "knowledge_ledger.md":
+        continue
+    for i, line in enumerate(rd(f).splitlines(), 1):
+        for hit in sorted(set(ENV.findall(line))):
+            errs.append(f"{rel(f)}:{i}: 특정 AI 환경 이름 '{hit}' — 능력으로 쓸 것 (예: 병렬 실행 도구가 있는 환경)")
 
 # 민감정보 패턴
 PAT = {
