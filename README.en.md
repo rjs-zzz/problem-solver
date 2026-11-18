@@ -89,6 +89,23 @@ Zip the folder `plugins/problem-solver/skills/problem-solver/` and upload it on
 the Skills screen (the menu path varies by plan and date — see the
 [official guide](https://support.claude.com/en/articles/12512180)).
 
+### ChatGPT · Gemini — same zip files
+
+ChatGPT and Gemini read the same SKILL.md format (the Agent Skills standard). Use the `dist/` zips above as they are.
+
+| AI | How |
+|---|---|
+| ChatGPT | Skills → Create → Upload from your computer, then upload the zip |
+| Gemini (web gemini.google.com · Mac app) | Settings → Skills → Upload. If the zip is refused, unzip it and upload the skill folder |
+| Gemini CLI | `gemini skills install https://github.com/rjs-zzz/problem-solver.git --path plugins/problem-solver/skills/problem-solver` (for red-team, end the path with `red-team`) |
+
+- To invoke: `@skill-name` in ChatGPT, `/skill-name` in Gemini. Both may also pick the skill on their own when the request matches.
+- In the ChatGPT desktop app you can also add `rjs-zzz/problem-solver` under Plugins → Add → Add a marketplace
+  (OpenAI documents compatibility with Claude-format marketplaces). Availability on web and mobile varies by plan.
+- When moving a document to another company's AI, generalize organization and personal names and leave out confidential originals.
+- Menu names and support change with each vendor's updates (as of 2026-11).
+- Running red-team in a different company's AI from the one that wrote the draft satisfies R3 (different model).
+
 ### See the output before installing
 
 [`examples/01_short-report_교육시스템-교체.md`](examples/01_short-report_교육시스템-교체.md)

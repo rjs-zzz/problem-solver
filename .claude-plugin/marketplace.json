@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "단일 결론(선택·가부·원인 판정)을 구조적으로 도출하고, 새 대화·다른 모델에서 독립 검증하는 Claude 스킬",
-    "version": "1.7.1"
+    "version": "1.7.2"
   },
   "plugins": [
     {
       "name": "problem-solver",
       "source": "./plugins/problem-solver",
       "description": "구조적 문제해결 — 6단계 워크플로우 + 5인 반대자 패널 + 독립 검증(red-team)",
-      "version": "1.7.1"
+      "version": "1.7.2"
     }
   ]
 }
