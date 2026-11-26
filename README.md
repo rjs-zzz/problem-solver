@@ -131,6 +131,22 @@
 **Update marketplace**를 누릅니다. 같은 화면에서 **Enable auto-update**를 켜 두면 이후에는 자동으로 갱신됩니다
 (외부 마켓플레이스는 자동 갱신이 기본으로 꺼져 있습니다).
 
+#### Claude Code에서 달라지는 점
+
+| 항목 | 웹·데스크톱 채팅 | Claude Code |
+|---|---|---|
+| 부르기 | "problem-solver로 …" | 같은 문장, 또는 `/problem-solver:problem-solver …` |
+| 레드팀 | 새 대화를 열고 다른 모델로 붙여넣기 | **자동** — `red-team-reviewer` 하위 에이전트가 별도 문맥·다른 모델로 실행하고 `[RT-RETURN]`을 바로 반영 |
+| 아무 문서나 레드팀 | 새 대화에 붙여넣기 | `/problem-solver:red-team-run outputs/보고서.md` (모델 지정: `--model sonnet`) |
+| 산출물 | 응답 본문 | 작업 폴더 `outputs/YYYYMMDD_사안_종류_v1.md`에 저장, 응답에는 요지와 경로 |
+| 다음 단계로 넘기기 | `[DATA-…]` 블록 복사·붙여넣기 | 붙여넣기 없음 — 다음 스킬이 `outputs/`에서 찾아 읽음 |
+
+- 레드팀 자동 실행은 계획 단계(Phase A)에서 「레드팀 — 자동」을 고르면 작동합니다. 독립성 등급은
+  `[RT-RETURN]`의 `run_mode: 독립 문맥 자동`과 함께 보고서 Ⅴ장에 남습니다.
+- 하위 에이전트는 작성 대화·작업 폴더·CLAUDE.md를 보지 못합니다(R1·R2). 모델은 작성 모델과 다른 계열로
+  지정됩니다(R3) — Opus로 썼으면 Sonnet, Sonnet으로 썼으면 Opus.
+- 법령·통계 MCP 서버가 연결돼 있으면 스킬이 우선 활용합니다. 없으면 웹 검색으로 대신하고 그 사실을 적습니다.
+
 ### Claude.ai (웹/데스크톱/모바일) — 파일 하나만 올리기
 
 1. [`dist/problem-solver.zip`](dist/problem-solver.zip)과 [`dist/red-team.zip`](dist/red-team.zip)을 내려받습니다.
@@ -192,6 +208,9 @@ problem-solver/
 │           ├── decision_matrix.md      # 가중 평가매트릭스 템플릿
 │           ├── intake_sheet.md         # 입력 양식 (준비물 안내)
 │           └── data_block.md           # [DATA-PS-OUTPUT] 인계 블록 스키마
+│   ├── agents/red-team-reviewer.md     # Claude Code 전용 — 레드팀 독립 실행 하위 에이전트
+│   ├── commands/red-team-run.md        # Claude Code 전용 — /problem-solver:red-team-run
+│   ├── evals/                          # claude plugin eval 사례 (evals/cases.md에서 생성)
 │   └── skills/red-team/
 │       ├── SKILL.md                    # 사용 규칙 게이트 → 카드 → 06 패널 → [RT-RETURN]
 │       ├── modules/06_critic-review.md # 06 사본 (tools/sync_common.py가 복사 — 직접 수정 금지)
@@ -202,7 +221,8 @@ problem-solver/
 ├── shared/                             # 공통 참조 원본 (각 스킬 references/로 복사)
 │   ├── frontier_scan.md                # 최신 동향 탐색 공통 절차
 │   └── rt_protocol.md                  # 레드팀 사용 규칙·블록 스키마
-└── tools/                              # sync_common.py · build_dist.py · validate.py
+├── CLAUDE.md                           # 저장소 작업 규칙 (Claude Code로 고칠 때 자동으로 읽힘)
+└── tools/                              # sync_common.py · build_dist.py · build_evals.py · validate.py
 ```
 
 ## 함께 쓰는 스킬 — Planning Suite
@@ -245,7 +265,8 @@ planning-suite가 가정·Go/No-Go 조건·실행 개요를 재입력 없이 이
   - 결과가 너무 길다 → "약식으로"를 지정합니다.
   - 계획을 먼저 확인하고 싶다 → "정식으로"를 지정하면 계획 승인 후 진행합니다.
 - **저장소를 고친 뒤**: `python tools/sync_common.py` → `python tools/build_dist.py` →
-  `python tools/validate.py` 순으로 실행하면 공통 블록·zip·버전이 맞는지 확인됩니다.
+  `python tools/build_evals.py` → `python tools/validate.py` 순으로 실행하면 공통 블록·zip·시험 사례·버전·
+  매니페스트가 맞는지 확인됩니다. GitHub Actions가 push·PR마다 같은 점검을 돌립니다.
 - **영문판 스킬**: 이 저장소는 한국어 전용입니다(출력 형식도 한국
   정부 보고서 양식).
 

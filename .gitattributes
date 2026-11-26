@@ -1,0 +1,5 @@
+# 모든 텍스트 파일을 LF로 고정 — Windows(Git Bash) 체크아웃에서도 SKILL.md frontmatter·dist zip이 같게 나온다
+* text=auto eol=lf
+*.zip binary
+*.png binary
+*.jpg binary

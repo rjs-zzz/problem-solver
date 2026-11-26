@@ -29,6 +29,10 @@
 
 1. 변경 전 상태로 `evals/cases.md`의 사례를 실행해 채점한다.
 2. 변경 후 상태로 같은 사례를 실행해 채점한다.
+   - Claude Code가 있으면 자동 시험으로 한다: `python tools/build_evals.py` 후
+     `claude plugin eval plugins/<플러그인> --allow-tools WebSearch WebFetch` (변경 전은 main 체크아웃, 변경 후는 작업 브랜치).
+     같은 `--model`로 돌린다. 채점은 판정 모델이 하므로 "실행한 세션이 스스로 채점"하는 한계가 줄어든다.
+   - 자동 시험에서 빠지는 사례(이어지는 입력·같은 대화 전제)는 `evals/README.md`의 수동 절차로 한다.
 3. `evals/README.md`의 채택 조건을 통과한 변경만 남긴다. 통과하지 못한 변경은 되돌리고 기각 사유에 적는다.
 4. 결과를 `evals/results/YYYY-MM-DD_<버전>.md`에 남긴다.
 5. 실행·채점을 수행하지 못했으면 PR 본문 첫 줄에 "시험 미수행"과 이유를 적는다 — 통과했다고 쓰지 않는다.
@@ -38,7 +42,8 @@
 1. 브랜치: `improve/YYYY-MM`
 2. 버전: 절차 변경이 있으면 minor, 지식 원장만 바꿨으면 patch를 올린다
    (`.claude-plugin/marketplace.json`, 각 `plugin.json`, `CHANGELOG.md`).
-3. `python tools/sync_common.py` → `python tools/build_dist.py` → `python tools/validate.py`를 실행하고 통과를 확인한다.
+3. `python tools/sync_common.py` → `python tools/build_dist.py` → `python tools/build_evals.py` → `python tools/validate.py`를
+   실행하고 통과를 확인한다 (PR에서는 GitHub Actions가 같은 점검을 돌린다).
 4. PR 본문에 넣는다:
    - 변경 요약 (지식 n건, 절차 n건, 기각 n건)
    - 변경별 근거: 출처(발행처·발행일·링크), 적용 조건, 예상 효과
@@ -50,3 +55,4 @@
 
 - PR을 검토하고 병합한다.
 - Claude 계정: 사용자 지정 → 플러그인 → 추가 → 마켓플레이스 관리 → "업데이트 확인".
+- Claude Code: `/plugin` → Marketplaces → 해당 마켓플레이스 → Update marketplace (자동 갱신을 켰으면 생략).

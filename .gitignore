@@ -1,0 +1,7 @@
+# 스킬 실행 산출물 (저장소 안에서 스킬을 돌렸을 때)
+outputs/
+# claude plugin eval 실행 결과 — 기록은 evals/results/에 요약으로 남긴다
+plugins/*/evals/results/
+__pycache__/
+*.pyc
+.DS_Store

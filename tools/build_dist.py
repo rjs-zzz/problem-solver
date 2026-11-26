@@ -30,7 +30,10 @@ def build(skill_dir):
             zi = zipfile.ZipInfo(arc, FIXED)
             zi.compress_type = zipfile.ZIP_DEFLATED
             zi.external_attr = 0o644 << 16
-            z.writestr(zi, open(p, "rb").read())
+            data = open(p, "rb").read()
+            if not p.endswith((".png", ".jpg", ".zip")):
+                data = data.replace(b"\r\n", b"\n")  # Windows 체크아웃에서도 같은 zip
+            z.writestr(zi, data)
     return name, buf.getvalue()
 
 

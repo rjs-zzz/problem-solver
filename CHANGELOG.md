@@ -2,6 +2,29 @@
 
 본 저장소는 [Semantic Versioning](https://semver.org/lang/ko/)을 따른다.
 
+## [1.8.0] — 2026-11-26
+
+### 추가 (Claude Code 지원)
+- **레드팀 자동 실행** — `agents/red-team-reviewer.md`(하위 에이전트). 별도 문맥(작성 대화·작업 폴더·CLAUDE.md 차단)과
+  작성 모델과 다른 계열의 모델로 red-team 스킬을 돌리고, `[RT-RETURN]`을 붙여넣기 없이 원 대화에 반영한다.
+  하위 작업을 띄울 수 없는 환경(웹 채팅·다른 AI)은 기존 수동 방식(새 대화)을 그대로 쓴다.
+- **`/problem-solver:red-team-run [파일] [--model …]`** — 아무 완성 문서나 독립 레드팀에 넘기는 명령.
+- `shared/rt_protocol.md` 7절 「독립 문맥 자동 실행」 — `[RT-DISPATCH]` 머리말, 호출 측 모델 지정 규칙, 하위 작업의 자동 게이트 판정
+  (R1·R2 구조적 충족, R3는 자기 모델명 또는 호출 기록으로 대조). `[RT-RETURN]`에 `run_mode` 추가, Ⅴ장 검토 주체에 자동·수동 표기.
+- **플러그인 평가 사례** (`plugins/problem-solver/evals/`) — `evals/cases.md`에서 `tools/build_evals.py`가 생성. `claude plugin eval`로
+  ★ 기준을 판정 모델이 채점한다. 같은 대화·이어지는 입력이 필요한 사례(PS-2, PS-6, RT-1)는 수동 시험으로 남긴다.
+- 저장소 `CLAUDE.md`(작업 규칙), GitHub Actions 점검(`.github/workflows/validate.yml`), `.gitattributes`(LF 고정).
+
+### 변경
+- **공통 실행 통제**
+  - 「위임 상한」: 하위 작업 위임을 본문이 명시한 경우(독립 검증 실행·병렬 분석 트랙)로 한정. 같은 모델의 재확인 위임은 계속 금지.
+  - 「산출물 저장」 신설: 작업 폴더에 파일을 쓸 수 있으면 `outputs/YYYYMMDD_사안_종류_v1`로 저장(덮어쓰기 금지), 인계 블록은 파일 끝,
+    앞 단계 산출물은 붙여넣기 요구 전에 `outputs/`에서 먼저 찾는다.
+- problem-solver Phase A 「검증 방식 확인」에서 레드팀을 자동·수동으로 나눠 제시(가용한 쪽만). 자동 경로는 정지점 없이 완주한다.
+- `tools/validate.py`: 플러그인 에이전트·명령 frontmatter, `${CLAUDE_PLUGIN_ROOT}` 경로 실재, CRLF, 평가 사례 최신 여부,
+  `claude plugin validate`(CLI가 있을 때) 점검 추가. Windows 경로에서 `.git` 폴더를 검사하던 문제 수정.
+- `tools/sync_common.py`·`tools/build_dist.py`: Windows에서 실행해도 LF·같은 zip이 나오도록 고정.
+
 ## [1.7.2] — 2026-11-18
 
 ### 변경 (다른 AI 호환)

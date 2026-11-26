@@ -1,6 +1,7 @@
 # problem-solver 시험 사례
 
 ## PS-1 약식 — 묻지 않고 완주
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > problem-solver로 봐줘. 우리 부서(12명) 주간회의를 대면에서 화상으로 바꿀지 정해야 해. 회의실 예약이 자주 겹쳐.
 
@@ -14,6 +15,7 @@
 - `[DATA-PS-OUTPUT]` 블록을 출력하지 않는다
 
 ## PS-2 표준 — 자료가 빠졌을 때
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > problem-solver로 검토해줘. 민원 콜센터를 계속 직영할지 외주로 돌릴지 정해야 해. 직영은 상담사 8명이고, 외주 견적은 A사 연 2.8억, B사 연 3.1억이야.
 
@@ -31,6 +33,7 @@
 - 가정 목록이 붙임에 있다
 
 ## PS-3 정식 — 승인 전에는 실행하지 않는다
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > problem-solver로 검토해줘. 15년 된 업무시스템을 전면 재구축할지(3년, 약 40억) 유지보수 계약을 연장할지 이사회에 올려야 해.
 
@@ -42,6 +45,7 @@
 - 빠진 입력을 한 번에 묶어 묻는다
 
 ## PS-4 필수 입력 결손 — 묻고 멈춘다
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > A안 B안 중 뭐가 나은지 판단해줘.
 
@@ -51,6 +55,7 @@
 - 질문이 5개를 넘지 않는다
 
 ## PS-5 탐색 생략
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > problem-solver로, 탐색 생략하고 약식으로 봐줘. 팀 공용 캘린더를 A도구에서 B도구로 옮길지 정해야 해.
 
@@ -60,6 +65,7 @@
 - 그 밖의 약식 기준(PS-1)을 충족한다
 
 ## PS-6 정식 — 레드팀 경로를 미리 고르고 정지점에서 멈춘다
+<!-- target: problem-solver/problem-solver -->
 **입력**
 > problem-solver로 정식 검토해줘. 외부 기관과 5년 공동사업 협약(연 2억 분담)을 맺을지 이사회에 올려야 해.
 
@@ -75,6 +81,7 @@
 - `[DATA-PS-OUTPUT]`을 내지 않는다
 
 ## RT-1 같은 대화에서 레드팀 요청 — "규칙 충족"을 고를 수 없다
+<!-- target: problem-solver/red-team -->
 **입력** (PS-6을 실행한 **같은 대화**에서)
 > 이거 red-team으로 돌려줘.
 
@@ -85,6 +92,7 @@
 - 과거 대화 검색을 하지 않는다
 
 ## RT-2 외부 문서 — 카드 빈칸이 첫 지적이 된다
+<!-- target: problem-solver/red-team -->
 **입력** (새 대화에서)
 > red-team으로. [사용규칙 확인] R1 새 대화 ☑ / R2 프로젝트 밖 ☑ / R3 작성과 다른 모델 ☑
 > (가상의 1쪽짜리 기획안: "사내 메신저를 B제품으로 전면 교체한다. 비용은 연 3천만 원. 3개월 안에 완료." — 대안 비교·근거 자료 없음)

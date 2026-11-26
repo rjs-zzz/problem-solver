@@ -81,6 +81,11 @@ Rules and block schemas: [`shared/rt_protocol.md`](shared/rt_protocol.md). The s
 /plugin install problem-solver@problem-solver
 ```
 
+What changes in Claude Code: the red-team step runs **automatically** in a `red-team-reviewer` sub-agent with a
+separate context and a different model family, and its `[RT-RETURN]` is applied without copy-paste.
+Any finished document can be red-teamed with `/problem-solver:red-team-run <file>` (optional `--model sonnet`).
+Reports are saved to `outputs/YYYYMMDD_<topic>_<type>_v1.md` in the working folder.
+
 ### Claude.ai (web/desktop/mobile) — upload one file
 
 Download [`dist/problem-solver.zip`](dist/problem-solver.zip) and [`dist/red-team.zip`](dist/red-team.zip) and upload each as-is on the Skills upload screen (do not unzip or re-zip). For a new version, download the zip again and re-upload. In Claude Code, third-party marketplaces do not auto-update by default: open `/plugin` → **Marketplaces**, select `problem-solver`, and choose **Update marketplace** or **Enable auto-update**.

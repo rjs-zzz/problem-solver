@@ -26,7 +26,7 @@ for p in sorted(targets):
         continue
     new = pat.sub(block, t)
     if new != t:
-        open(p, "w", encoding="utf-8").write(new)
+        open(p, "w", encoding="utf-8", newline="\n").write(new)
         changed += 1
         print(f"  updated: {os.path.relpath(p, ROOT)}")
 print(f"완료 — 대상 {len(targets)}개 중 {changed}개 갱신")

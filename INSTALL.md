@@ -42,12 +42,23 @@
 
 새 버전은 마켓플레이스 관리 화면의 「업데이트 확인」으로 받습니다.
 
-Claude Code에서는 아래 두 줄입니다.
+### Claude Code
 
 ```
 /plugin marketplace add rjs-zzz/problem-solver
 /plugin install problem-solver@problem-solver
+/plugin marketplace add rjs-zzz/planning-suite
+/plugin install planning-orchestrator@planning-suite
 ```
+
+- 셋째·넷째 줄은 기획 세트입니다. `planning-orchestrator`를 설치하면 P1~P6가 함께 설치됩니다.
+  `visual-presenter`는 따로 설치합니다 (`/plugin install visual-presenter@planning-suite`).
+- 설치 뒤 `/reload-plugins` 또는 새 세션에서 쓸 수 있습니다. 요청은 웹과 같은 문장으로 하면 됩니다.
+- 결과는 작업 폴더의 `outputs/`에 파일로 저장되고, 다음 단계 스킬이 그 파일을 찾아 이어받습니다.
+- 레드팀은 하위 에이전트가 별도 문맥·다른 모델로 **자동 실행**합니다. 아무 문서나 검증하려면
+  `/problem-solver:red-team-run outputs/파일.md`
+- 새 버전: `/plugin` → Marketplaces → 해당 마켓플레이스 → Update marketplace (Enable auto-update 권장)
+- Windows는 Git Bash 환경을 권장합니다. 플러그인 자체는 스크립트를 실행하지 않으므로 별도 설치물이 없습니다.
 
 ### 파일로 설치
 
@@ -89,7 +100,7 @@ gemini skills install https://github.com/rjs-zzz/planning-suite.git --path plugi
 ## 쓰는 요령
 
 - **기획 단계 잇기**: 앞 단계 결과 끝의 `[DATA-PN-OUTPUT]` 블록을 복사해 다음 단계 대화에 붙여 넣습니다. 어느 AI에서나 같습니다.
-- **red-team**: 작성한 대화가 아닌 **새 대화**에서, 가능하면 작성할 때와 **다른 AI**로 돌립니다.
+- **red-team**: 작성한 대화가 아닌 **새 대화**에서, 가능하면 작성할 때와 **다른 AI**로 돌립니다 (Claude Code는 자동).
 - **민감정보**: 개인정보·대외비는 가리고 넣습니다.
 - **새 버전**: 파일로 설치했다면 같은 zip을 다시 올립니다. 바뀐 내용은 [problem-solver](https://github.com/rjs-zzz/problem-solver/blob/main/CHANGELOG.md) · [planning-suite](https://github.com/rjs-zzz/planning-suite/blob/main/CHANGELOG.md) 변경 이력에 있습니다.
 - 메뉴 이름과 지원 범위는 각 회사의 개편에 따라 바뀝니다 (2026-11 기준). 막히면 [Issue](https://github.com/rjs-zzz/problem-solver/issues)로 알려 주세요.
