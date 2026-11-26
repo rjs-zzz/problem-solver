@@ -48,11 +48,12 @@
 /plugin marketplace add rjs-zzz/problem-solver
 /plugin install problem-solver@problem-solver
 /plugin marketplace add rjs-zzz/planning-suite
-/plugin install planning-orchestrator@planning-suite
+/plugin install planning-suite-all@planning-suite
 ```
 
-- 셋째·넷째 줄은 기획 세트입니다. `planning-orchestrator`를 설치하면 P1~P6가 함께 설치됩니다.
-  `visual-presenter`는 따로 설치합니다 (`/plugin install visual-presenter@planning-suite`).
+- 셋째·넷째 줄은 기획 세트입니다. 묶음(`planning-suite-all`)이 P1~P6·관제·표현 8종을 함께 설치합니다.
+  일부만 원하면 묶음 대신 개별로 설치합니다 (예: `/plugin install goal-setting-loop-p2@planning-suite`).
+  묶음이 있는 동안에는 개별 Phase를 끌 수 없으므로, 일부를 끄려면 묶음을 먼저 제거합니다 (8종은 남습니다).
 - 설치 뒤 `/reload-plugins` 또는 새 세션에서 쓸 수 있습니다. 요청은 웹과 같은 문장으로 하면 됩니다.
 - 결과는 작업 폴더의 `outputs/`에 파일로 저장되고, 다음 단계 스킬이 그 파일을 찾아 이어받습니다.
 - 레드팀은 하위 에이전트가 별도 문맥·다른 모델로 **자동 실행**합니다. 아무 문서나 검증하려면

@@ -6,7 +6,7 @@
 
 규칙
   - 각 사례 머리 아래 `<!-- target: 플러그인/스킬 -->` 주석이 대상이다.
-  - 「이어지는 입력」이 있거나 입력이 '같은 대화'를 전제하면 자동 시험에서 뺀다 (수동 시험 — evals/README.md).
+  - 「이어지는 입력」이 있거나 입력이 '같은 대화'·'작업 폴더'·'하위 작업'을 전제하면 자동 시험에서 뺀다 (수동 시험 — evals/README.md).
   - 출력: plugins/<플러그인>/evals/<사례id>/prompt.md + graders/{must,quality,skill-fired}.md
     must = ★ 항목(가중 2), quality = 나머지 항목, skill-fired = 대상 스킬이 실제로 불렸는지(기준선 비교에서 제외되는 지표).
   - 시험 실행은 파일 쓰기 도구를 주지 않는다 → 스킬이 산출물을 응답 본문에 내므로 채점기가 본문을 읽는다.
@@ -39,7 +39,7 @@ def parse(text):
         tg = re.search(r"<!-- target: ([\w-]+)/([\w-]+) -->", blk)
         im = re.search(r"\*\*입력\*\*(.*?)\n((?:>.*\n?)+)", blk)
         crit = re.search(r"\*\*합격 기준\*\*\n((?:- .*\n?)+)", blk)
-        manual = "**이어지는 입력**" in blk or (im and "같은 대화" in im.group(1))
+        manual = "**이어지는 입력**" in blk or bool(im and re.search(r"같은 대화|작업 폴더|하위 작업", im.group(1)))
         items = [l[2:].strip() for l in crit.group(1).splitlines()] if crit else []
         cases.append({
             "id": cid, "title": title,
