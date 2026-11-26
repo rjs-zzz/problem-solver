@@ -5,7 +5,7 @@
          python tools/build_dist.py --check  (dist가 최신인지 확인만, 다르면 종료코드 1)
 
 zip 구조: <스킬명>.zip → <스킬명>/SKILL.md ... (스킬 폴더가 zip의 최상위)
-같은 내용이면 항상 같은 바이트가 나오도록 시각·순서를 고정한다.
+같은 내용이면 항상 같은 바이트가 나오도록 시각·순서를 고정한다 (점검은 압축 결과가 아니라 항목 내용으로 비교).
 """
 import glob, io, os, sys, zipfile
 
@@ -37,6 +37,20 @@ def build(skill_dir):
     return name, buf.getvalue()
 
 
+def same_content(a, b):
+    """압축 바이트는 zlib 판에 따라 달라진다 — 항목 이름·내용이 같으면 같은 zip으로 본다."""
+    if a is None or b is None:
+        return False
+    if a == b:
+        return True
+    try:
+        za, zb = zipfile.ZipFile(io.BytesIO(a)), zipfile.ZipFile(io.BytesIO(b))
+        na, nb = za.namelist(), zb.namelist()
+        return na == nb and all(za.read(n) == zb.read(n) for n in na)
+    except zipfile.BadZipFile:
+        return False
+
+
 def main():
     check = "--check" in sys.argv
     skills = sorted(glob.glob(os.path.join(ROOT, "plugins", "*", "skills", "*")))
@@ -47,7 +61,7 @@ def main():
         name, data = build(s)
         out = os.path.join(DIST, name + ".zip")
         cur = open(out, "rb").read() if os.path.exists(out) else None
-        if cur == data:
+        if same_content(cur, data):
             print(f"  ok       dist/{name}.zip")
             continue
         stale += 1
